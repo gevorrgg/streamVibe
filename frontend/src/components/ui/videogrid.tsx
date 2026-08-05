@@ -7,12 +7,12 @@ type VideoGridProps = {
     videos: ApiVideo[];
     onDelete: (id: number) => void;
     onOpenVideo: (video: ApiVideo) => void;
-    /** Показывать меню Edit/Delete (только на своей странице). По умолчанию true. */
+    /** Show the Edit/Delete menu only on your own page. Defaults to true. */
     showActions?: boolean;
 };
 
 export function VideoGrid({ videos, onDelete, onOpenVideo, showActions = true }: VideoGridProps) {
-    // id открытого меню (только одно меню может быть открыто одновременно)
+    // id of the open menu (only one menu can be open at a time)
     const [openMenuId, setOpenMenuId] = useState<number | null>(null);
 
     if (videos.length === 0) {

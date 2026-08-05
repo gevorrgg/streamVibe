@@ -3,8 +3,8 @@ import { apiFetch } from "../lib/api-client";
 import type { ApiProfile } from "../components/streamvibe/profile/types/profile.types";
 
 /**
- * Только профиль (без stats/videos) — нужен, чтобы TopBar показывал
- * аватар/имя авторизованного пользователя даже когда мы смотрим чужую страницу.
+ * Only the profile (without stats/videos) — needed so TopBar can display
+ * the authenticated user's avatar/name even when viewing someone else's page.
  */
 export function useAuthProfile(authUserId: number | null): ApiProfile | null {
     const [profile, setProfile] = useState<ApiProfile | null>(null);

@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { getStoredAuthSession, getStoredAuthUser } from "../lib/api-client";
 
 /**
- * Достаёт id текущего пользователя из сохранённой сессии,
- * с фолбэком на getStoredAuthUser().
+ * Retrieves the current user's id from the stored session,
+ * with a fallback to getStoredAuthUser().
  */
 export function useCurrentUserId(): number | null {
     const [userId, setUserId] = useState<number | null>(null);

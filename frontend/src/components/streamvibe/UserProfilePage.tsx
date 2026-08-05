@@ -22,7 +22,7 @@ import type { ApiVideo } from "./profile/types/profile.types";
 
 
 type UserProfilePageProps = {
-    /** id профиля, который открыт — приходит из роута /users/$userId */
+    /** id of the opened profile — comes from route /users/$userId */
     userId: number;
     initialFollowing: boolean | null;
 };
@@ -34,16 +34,16 @@ export function UserProfilePage({ userId: viewedUserId, initialFollowing }: User
     const [authSession, setAuthSession] = useState(() => getStoredAuthSession());
     const authUserId = useCurrentUserId();
 
-    /* топбар — всегда про авторизованного пользователя, не про того, чей профиль открыт */
+    /* top bar is always for the authenticated user, not the user whose profile is open */
     const authProfile = useAuthProfile(authUserId);
 
-    /* профиль/статистика/видео просматриваемого пользователя — read-only */
+    /* viewed user's profile/stats/videos are read-only */
     const { profile, stats, videos, adjustFollowersCount } = useViewedUserProfile(viewedUserId);
 
-    /* при загрузке страницы узнаём, подписан ли auth-юзер на этого человека */
+    /* on page load, determine whether the authenticated user is following this person */
     const { following, toggleFollow } = useFollowStatus(viewedUserId, initialFollowing);
 
-    /* рекомендации всегда авторизованного пользователя и не зависят от открытого профиля */
+    /* recommendations are always for the authenticated user and do not depend on the opened profile */
     const {
         userSearch,
         setUserSearch,
@@ -75,7 +75,7 @@ export function UserProfilePage({ userId: viewedUserId, initialFollowing }: User
     async function handleToggleFollow() {
         const willFollow = !following;
 
-        // оптимистично двигаем счётчик подписчиков в ProfileSidebar
+        // optimistically update the follower count in ProfileSidebar
         adjustFollowersCount(willFollow ? 1 : -1);
 
         try {
@@ -89,7 +89,7 @@ export function UserProfilePage({ userId: viewedUserId, initialFollowing }: User
                     : `Unfollowed ${name}`
             );
         } catch (error) {
-            // откатываем счётчик, если сервер отклонил запрос
+            // revert the count if the server rejects the request
             adjustFollowersCount(willFollow ? -1 : 1);
 
             console.error(error);

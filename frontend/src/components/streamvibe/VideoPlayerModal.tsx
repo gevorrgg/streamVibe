@@ -40,21 +40,21 @@ export function VideoPlayerModal({
         return () => document.removeEventListener("keydown", handleEscape);
     }, [onClose]);
 
-    // автовоспроизведение при открытии
+    // auto-play when the modal opens
     useEffect(() => {
         videoRef.current?.play().catch(() => {
-            // автоплей может быть заблокирован браузером — это нормально
+            // autoplay may be blocked by the browser; that's okay
         });
     }, []);
 
     async function toggleLike() {
-        // защита от повторных кликов, пока предыдущий запрос ещё не завершился —
-        // иначе уходит несколько POST/DELETE подряд и счётчик лайков "скачет"
+        // prevent repeated clicks while the previous request is still pending —
+        // otherwise multiple POST/DELETE requests may be sent and the like count jumps
         if (likePending) return;
 
         const nextLiked = !liked;
 
-        // оптимистичное обновление UI, с откатом при ошибке
+        // optimistic UI update with rollback on failure
         setLiked(nextLiked);
         setLikesCount((count) => count + (nextLiked ? 1 : -1));
         setLikePending(true);
@@ -65,7 +65,7 @@ export function VideoPlayerModal({
             });
         } catch (err) {
             console.error("Failed to toggle like", err);
-            // откатываем состояние назад, раз запрос не прошёл
+            // revert state if the request failed
             setLiked(!nextLiked);
             setLikesCount((count) => count - (nextLiked ? 1 : -1));
         } finally {
@@ -101,7 +101,7 @@ export function VideoPlayerModal({
                             style={{ background: GRADIENT_FALLBACK(video.grad) }}
                         >
                             <span className="video-player-emoji">{video.emoji}</span>
-                            <p>Видео недоступно для воспроизведения</p>
+                            <p>Video unavailable for playback</p>
                         </div>
                     )}
                 </div>

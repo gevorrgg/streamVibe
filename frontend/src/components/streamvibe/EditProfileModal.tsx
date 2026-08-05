@@ -99,7 +99,7 @@ export function EditProfileModal({ userId, profile, avatarGrad, onClose, onSaved
         if (fileRef.current) fileRef.current.value = "";
     }
 
-    // --- проверка на "есть ли изменения" ---
+    // --- check whether there are unsaved changes ---
     const isDirty = useMemo(() => {
         const trimmedName = name.trim();
         const trimmedUsername = username.trim().toLowerCase();
@@ -159,7 +159,7 @@ export function EditProfileModal({ userId, profile, avatarGrad, onClose, onSaved
                 patch.avatarKey = null;
             }
 
-            // если реально нечего отправлять — просто закрываем без похода в API
+            // if there is actually nothing to send, just close without calling the API
             if (Object.keys(patch).length === 0) {
                 onSaved();
                 return;

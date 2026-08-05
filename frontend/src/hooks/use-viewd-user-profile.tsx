@@ -7,7 +7,7 @@ type UseViewedUserProfileResult = {
     stats: ApiStats;
     videos: ApiVideo[];
     loading: boolean;
-    /** Локально (оптимистично) сдвигает счётчик подписчиков на delta, не дожидаясь рефетча статы. */
+    /** Locally (optimistically) shifts the follower count by delta without waiting for stats refetch. */
     adjustFollowersCount: (delta: number) => void;
 };
 

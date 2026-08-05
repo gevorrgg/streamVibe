@@ -13,8 +13,8 @@ type UseProfileDataResult = {
 };
 
 /**
- * Инкапсулирует получение профиля/статистики/видео пользователя
- * и операции над ними (обновление, удаление видео).
+ * Encapsulates fetching the user's profile/stats/videos
+ * and operations on them (update, delete videos).
  */
 export function useProfileData(userId: number | null): UseProfileDataResult {
     const [profile, setProfile] = useState<ApiProfile | null>(null);

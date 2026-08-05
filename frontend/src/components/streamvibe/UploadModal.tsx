@@ -28,7 +28,7 @@ export function generateThumbnail(
         video.src = url;
 
         video.onloadedmetadata = () => {
-            // если видео короче секунды — берём первый кадр
+            // if the video is shorter than one second, use the first frame
             video.currentTime = Math.min(time, video.duration);
         };
 

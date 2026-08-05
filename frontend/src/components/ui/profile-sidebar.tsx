@@ -7,9 +7,9 @@ type ProfileSidebarProps = {
     profile: ApiProfile | null;
     stats: ApiStats;
     avatarGrad: string;
-    /** Кнопка действия в карточке профиля: "Edit Profile" на своей странице, Subscribe — на чужой */
+    /** Action button in the profile card: "Edit Profile" on your own page, Subscribe on someone else's */
     actionButton: ReactNode;
-    /** Показывать полное меню навигации (на своей странице) или скрыть его (на чужой) */
+    /** Show the full navigation menu on your own page, or hide it on someone else's */
     showNav?: boolean;
 };
 

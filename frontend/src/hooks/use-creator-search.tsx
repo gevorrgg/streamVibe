@@ -112,12 +112,12 @@ export function useCreatorSearch(
             users.map((user) =>
                 user.id === targetId
                     ? {
-                          ...user,
-                          following: nextFollowing,
-                          followers:
-                              user.followers +
-                              (nextFollowing ? 1 : -1),
-                      }
+                        ...user,
+                        following: nextFollowing,
+                        followers:
+                            user.followers +
+                            (nextFollowing ? 1 : -1),
+                    }
                     : user,
             );
 
@@ -126,8 +126,8 @@ export function useCreatorSearch(
                 user.id === targetId ? target : user,
             );
 
-        // Обновляем оба списка, потому что один пользователь
-        // может одновременно находиться в рекомендациях и поиске.
+        // Update both lists because the same user can appear
+        // in recommendations and search results at the same time.
         setRecommendations(updateUser);
         setSearchResults(updateUser);
 
@@ -147,7 +147,7 @@ export function useCreatorSearch(
                     (nextFollowing ? 1 : -1),
             };
         } catch (error) {
-            // Откатываем оптимистичное изменение при ошибке сервера.
+            // Roll back the optimistic update if the server returns an error.
             setRecommendations(rollbackUser);
             setSearchResults(rollbackUser);
 
